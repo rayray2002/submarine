@@ -29,7 +29,7 @@ _RUN_ID_ENV_VAR = "SUBMARINE_RUN_ID"
 _logger = logging.getLogger(__name__)
 
 
-def log_param(key, value):
+def log_param(key: str, value: str):
     """
     Log a parameter under the current run, creating a run if necessary.
     :param key: Parameter name (string)
@@ -40,7 +40,7 @@ def log_param(key, value):
     SubmarineClient().log_param(job_id, key, value, worker_index)
 
 
-def log_metric(key, value, step=None):
+def log_metric(key: str, value: float, step: int = None):
     """
     Log a metric under the current run, creating a run if necessary.
     :param key: Metric name (string).
@@ -52,15 +52,3 @@ def log_metric(key, value, step=None):
     job_id = get_job_id()
     worker_index = get_worker_index()
     SubmarineClient().log_metric(job_id, key, value, worker_index, datetime.now(), step or 0)
-
-
-def save_model(model_type: str, model, artifact_path: str, registered_model_name: str = None):
-    """
-    Save a model into the minio pod.
-    :param model_type: The type of the model.
-    :param model: Model.
-    :param artifact_path: Relative path of the artifact in the minio pod.
-    :param registered_model_name: If none None, register model into the model registry with
-                                  this name. If None, the model only be saved in minio pod.
-    """
-    SubmarineClient().save_model(model_type, model, artifact_path, registered_model_name)

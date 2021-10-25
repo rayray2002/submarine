@@ -13,6 +13,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from typing import Type
+
+from sqlalchemy.sql.schema import Column
+
 from submarine.entities._submarine_object import _SubmarineObject
 
 
@@ -21,7 +25,14 @@ class RegisteredModel(_SubmarineObject):
     Registered model object.
     """
 
-    def __init__(self, name, creation_time, last_updated_time, description=None, tags=None):
+    def __init__(
+        self,
+        name: Type[Column],
+        creation_time: Type[Column],
+        last_updated_time: Type[Column],
+        description=None,
+        tags=None,
+    ):
         self._name = name
         self._creation_time = creation_time
         self._last_updated_time = last_updated_time
@@ -29,26 +40,26 @@ class RegisteredModel(_SubmarineObject):
         self._tags = [tag.tag for tag in (tags or [])]
 
     @property
-    def name(self):
+    def name(self) -> Type[Column]:
         """String. Registered model name."""
         return self._name
 
     @property
-    def creation_time(self):
+    def creation_time(self) -> Type[Column]:
         """Datetime object. Registered model creation datetime."""
         return self._creation_time
 
     @property
-    def last_updated_time(self):
+    def last_updated_time(self) -> Type[Column]:
         """Datetime object. Datetime of last update for this model."""
         return self._last_updated_time
 
     @property
-    def description(self):
+    def description(self) -> Type[Column]:
         """String. Description"""
         return self._description
 
     @property
-    def tags(self):
+    def tags(self) -> list:
         """List of strings"""
         return self._tags

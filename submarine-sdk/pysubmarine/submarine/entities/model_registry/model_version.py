@@ -13,6 +13,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from typing import Type
+
+from sqlalchemy.sql.schema import Column
+
 from submarine.entities._submarine_object import _SubmarineObject
 
 
@@ -23,14 +27,14 @@ class ModelVersion(_SubmarineObject):
 
     def __init__(
         self,
-        name,
-        version,
-        source,
-        user_id,
-        experiment_id,
-        current_stage,
-        creation_time,
-        last_updated_time,
+        name: Type[Column],
+        version: Type[Column],
+        source: Type[Column],
+        user_id: Type[Column],
+        experiment_id: Type[Column],
+        current_stage: Type[Column],
+        creation_time: Type[Column],
+        last_updated_time: Type[Column],
         dataset=None,
         description=None,
         tags=None,
@@ -48,56 +52,56 @@ class ModelVersion(_SubmarineObject):
         self._tags = [tag.tag for tag in (tags or [])]
 
     @property
-    def name(self):
+    def name(self) -> Type[Column]:
         """String. Registered model name"""
         return self._name
 
     @property
-    def version(self):
+    def version(self) -> Type[Column]:
         """Integer. version"""
         return self._version
 
     @property
-    def source(self):
+    def source(self) -> Type[Column]:
         """String. Source path for the model."""
         return self._source
 
     @property
-    def user_id(self):
+    def user_id(self) -> Type[Column]:
         """String. User ID that created this version."""
         return self._user_id
 
     @property
-    def experiment_id(self):
+    def experiment_id(self) -> Type[Column]:
         """String. Experiment ID that created this version."""
         return self._experiment_id
 
     @property
-    def creation_time(self):
+    def creation_time(self) -> Type[Column]:
         """Datetime object. The creation datetime of this version."""
         return self._creation_time
 
     @property
-    def last_updated_time(self):
+    def last_updated_time(self) -> Type[Column]:
         """Datetime object. Datetime of last update for this version."""
         return self._last_updated_time
 
     @property
-    def current_stage(self):
+    def current_stage(self) -> Type[Column]:
         """String. Current stage of this version."""
         return self._current_stage
 
     @property
-    def dataset(self):
+    def dataset(self) -> Type[Column]:
         """String. Dataset used for this version."""
         return self._dataset
 
     @property
-    def description(self):
+    def description(self) -> Type[Column]:
         """String. Description"""
         return self._description
 
     @property
-    def tags(self):
+    def tags(self) -> list:
         """List of strings."""
         return self._tags

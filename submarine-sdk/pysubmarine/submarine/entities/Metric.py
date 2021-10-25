@@ -13,6 +13,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from typing import Type
+
+from sqlalchemy.sql.schema import Column
+
 from submarine.entities._submarine_object import _SubmarineObject
 
 
@@ -21,7 +25,14 @@ class Metric(_SubmarineObject):
     Metric object.
     """
 
-    def __init__(self, key, value, worker_index, timestamp, step):
+    def __init__(
+        self,
+        key: Type[Column],
+        value: Type[Column],
+        worker_index: Type[Column],
+        timestamp: Type[Column],
+        step: Type[Column],
+    ):
         self._key = key
         self._value = value
         self._worker_index = worker_index
@@ -29,26 +40,26 @@ class Metric(_SubmarineObject):
         self._step = step
 
     @property
-    def key(self):
+    def key(self) -> Type[Column]:
         """String key corresponding to the metric name."""
         return self._key
 
     @property
-    def value(self):
+    def value(self) -> Type[Column]:
         """Float value of the metric."""
         return self._value
 
     @property
-    def worker_index(self):
+    def worker_index(self) -> Type[Column]:
         """string value of the metric."""
         return self._worker_index
 
     @property
-    def timestamp(self):
+    def timestamp(self) -> Type[Column]:
         """Metric timestamp as aa datetime object."""
         return self._timestamp
 
     @property
-    def step(self):
+    def step(self) -> Type[Column]:
         """Integer metric step (x-coordinate)."""
         return self._step

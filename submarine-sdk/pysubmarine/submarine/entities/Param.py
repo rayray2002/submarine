@@ -13,6 +13,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from typing import Type
+
+from sqlalchemy.sql.schema import Column
+
 from submarine.entities._submarine_object import _SubmarineObject
 
 
@@ -21,22 +25,22 @@ class Param(_SubmarineObject):
     Parameter object.
     """
 
-    def __init__(self, key, value, worker_index):
+    def __init__(self, key: Type[Column], value: Type[Column], worker_index: Type[Column]):
         self._key = key
         self._value = value
         self._worker_index = worker_index
 
     @property
-    def key(self):
+    def key(self) -> Type[Column]:
         """String key corresponding to the parameter name."""
         return self._key
 
     @property
-    def value(self):
+    def value(self) -> Type[Column]:
         """String value of the parameter."""
         return self._value
 
     @property
-    def worker_index(self):
+    def worker_index(self) -> Type[Column]:
         """String value of the parameter."""
         return self._worker_index

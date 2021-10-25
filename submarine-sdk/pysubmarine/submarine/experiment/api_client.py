@@ -82,7 +82,12 @@ class ApiClient(object):
     _pool = None
 
     def __init__(
-        self, configuration=None, header_name=None, header_value=None, cookie=None, pool_threads=1
+        self,
+        configuration=None,
+        header_name=None,
+        header_value=None,
+        cookie=None,
+        pool_threads=1,
     ):
         if configuration is None:
             configuration = Configuration.get_default_copy()
@@ -104,7 +109,7 @@ class ApiClient(object):
     def __exit__(self, exc_type, exc_value, traceback):
         self.close()
 
-    def close(self):
+    def close(self) -> None:
         if self._pool:
             self._pool.close()
             self._pool.join()
@@ -113,7 +118,7 @@ class ApiClient(object):
                 atexit.unregister(self.close)
 
     @property
-    def pool(self):
+    def pool(self) -> ThreadPool:
         """Create thread pool on first request
         avoids instantiating unused threadpool for blocking clients.
         """
@@ -123,15 +128,15 @@ class ApiClient(object):
         return self._pool
 
     @property
-    def user_agent(self):
+    def user_agent(self) -> str:
         """User agent for this API client"""
         return self.default_headers["User-Agent"]
 
     @user_agent.setter
-    def user_agent(self, value):
+    def user_agent(self, value) -> None:
         self.default_headers["User-Agent"] = value
 
-    def set_default_header(self, header_name, header_value):
+    def set_default_header(self, header_name: str, header_value) -> None:
         self.default_headers[header_name] = header_value
 
     def __call_api(
@@ -569,7 +574,7 @@ class ApiClient(object):
 
         return params
 
-    def select_header_accept(self, accepts):
+    def select_header_accept(self, accepts: list):
         """Returns `Accept` based on an array of accepts provided.
 
         :param accepts: List of headers.
@@ -585,7 +590,7 @@ class ApiClient(object):
         else:
             return ", ".join(accepts)
 
-    def select_header_content_type(self, content_types):
+    def select_header_content_type(self, content_types: list):
         """Returns `Content-Type` based on an array of content_types provided.
 
         :param content_types: List of content-types.
@@ -646,7 +651,7 @@ class ApiClient(object):
 
         return path
 
-    def __deserialize_primitive(self, data, klass):
+    def __deserialize_primitive(self, data: str, klass):
         """Deserializes string to primitive type.
 
         :param data: str.
@@ -668,7 +673,7 @@ class ApiClient(object):
         """
         return value
 
-    def __deserialize_date(self, string):
+    def __deserialize_date(self, string: str):
         """Deserializes string to date.
 
         :param string: str.
@@ -683,7 +688,7 @@ class ApiClient(object):
                 status=0, reason="Failed to parse `{0}` as date object".format(string)
             )
 
-    def __deserialize_datetime(self, string):
+    def __deserialize_datetime(self, string: str):
         """Deserializes string to datetime.
 
         The string should be in iso8601 datetime format.

@@ -19,6 +19,7 @@ import json
 import os
 import uuid
 
+from submarine.store.sqlalchemy_store import SqlAlchemyStore
 from submarine.utils import env
 
 _TRACKING_URI_ENV_VAR = "SUBMARINE_TRACKING_URI"
@@ -87,13 +88,5 @@ def get_worker_index():
     return worker_index
 
 
-def get_tracking_sqlalchemy_store(store_uri: str):
-    from submarine.store.tracking.sqlalchemy_store import SqlAlchemyStore
-
-    return SqlAlchemyStore(store_uri)
-
-
-def get_model_registry_sqlalchemy_store(store_uri: str):
-    from submarine.store.model_registry.sqlalchemy_store import SqlAlchemyStore
-
+def get_sqlalchemy_store(store_uri: str):
     return SqlAlchemyStore(store_uri)
